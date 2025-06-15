@@ -1,0 +1,13 @@
+// File: app/providers.tsx
+
+'use client'; // Tandai ini sebagai Client Component
+
+import { SessionProvider } from 'next-auth/react';
+
+type Props = {
+  children?: React.ReactNode;
+};
+
+export const NextAuthProvider = ({ children }: Props) => {
+  return <SessionProvider>{children}</SessionProvider>;
+};
