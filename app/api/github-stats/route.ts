@@ -7,15 +7,12 @@ import { authOptions } from "../auth/[...nextauth]/route";
 type Repo = { name: string; owner: { login: string; }; };
 
 export async function GET() {
-  // Menggunakan getServerSession yang sudah kita verifikasi
   const session = await getServerSession(authOptions);
 
-  // Pengecekan keamanan pada objek sesi
   if (!session || !session.user || !session.user.nodeId || !session.accessToken || !session.user.login) {
     return NextResponse.json({ error: "Unauthorized: Session data is incomplete." }, { status: 401 });
   }
 
-  // Mengambil semua data yang dibutuhkan dari sesi
   const { accessToken } = session;
   const { login: username, nodeId: authorId } = session.user;
 
@@ -53,6 +50,7 @@ export async function GET() {
 
     let totalAdditions = 0;
     let totalDeletions = 0;
+    const dailyStats: { [key: string]: number } = {};
 
     // LANGKAH 2: Dapatkan statistik commit jika ada repositori
     if (uniqueRepos.length > 0) {
@@ -64,7 +62,7 @@ export async function GET() {
                 target {
                   ... on Commit {
                     history(since: $fromDate, until: $toDate, author: { id: $authorId }) {
-                      nodes { additions deletions }
+                      nodes { additions deletions committedDate }
                     }
                   }
                 }
@@ -82,22 +80,40 @@ export async function GET() {
       const statsData = await statsResponse.json();
       if (statsData.errors) throw new Error(`Error fetching stats: ${JSON.stringify(statsData.errors)}`);
 
+      // LANGKAH 3: Proses semua data commit
       for (const key in statsData.data) {
           const repoData = statsData.data[key];
           if (repoData?.defaultBranchRef?.target?.history?.nodes) {
               for (const commit of repoData.defaultBranchRef.target.history.nodes) {
+                  // Akumulasi total
                   totalAdditions += commit.additions;
                   totalDeletions += commit.deletions;
+
+                  // Akumulasi data harian
+                  const date = new Date(commit.committedDate).toISOString().split('T')[0];
+                  const changes = commit.additions + commit.deletions;
+                  dailyStats[date] = (dailyStats[date] || 0) + changes;
               }
           }
       }
     }
 
+    // Mengubah format data harian untuk Recharts dan mengurutkannya
+    const dailyStatsArray = Object.keys(dailyStats)
+      .sort((a, b) => new Date(a).getTime() - new Date(b).getTime()) // Urutkan berdasarkan tanggal
+      .map(date => ({
+        // Format tanggal menjadi '16 Jun' agar mudah dibaca di grafik
+        date: new Date(date).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }),
+        perubahan: dailyStats[date],
+    }));
+
+    // Data final yang akan dikirim ke frontend
     const processedData = {
       totalContributions: contributions.contributionCalendar.totalContributions,
       totalAdditions,
       totalDeletions,
       calendarWeeks: contributions.contributionCalendar.weeks,
+      dailyStats: dailyStatsArray,
     };
 
     return NextResponse.json(processedData);
