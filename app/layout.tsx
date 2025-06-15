@@ -3,13 +3,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { NextAuthProvider } from './providers'; // <- IMPORT
+import { NextAuthProvider } from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Git-Strava',
-  description: 'Your monthly GitHub activity recap',
+  description: 'Strava Overlay Trends, but for Developers. Get your monthly GitHub activity recap now.',
 };
 
 export default function RootLayout({
