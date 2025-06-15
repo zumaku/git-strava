@@ -14,9 +14,8 @@ interface ContributionCalendarProps {
   weeks: ContributionWeek[];
 }
 
-// Fungsi helper untuk menentukan warna berdasarkan jumlah kontribusi
 const getContributionColor = (count: number): string => {
-  if (count === 0) return 'bg-gray-800';
+  if (count === 0) return 'bg-gray-700/50';
   if (count <= 2) return 'bg-green-900';
   if (count <= 5) return 'bg-green-700';
   if (count <= 10) return 'bg-green-500';
@@ -24,27 +23,35 @@ const getContributionColor = (count: number): string => {
 };
 
 export default function ContributionCalendar({ weeks }: ContributionCalendarProps) {
-  // Kita perlu mengisi hari kosong di awal untuk alignment
-  const firstWeekLength = weeks[0]?.contributionDays.length || 0;
-  const emptyDays = Array(7 - firstWeekLength).fill(null);
+  // Logic untuk mengisi hari kosong di awal agar kalender rata kiri
+  // Misalnya, jika bulan dimulai hari Rabu, kita perlu 2 hari kosong (Senin, Selasa)
+  let firstDayOfWeek = 7; // Default jika tidak ada data
+  if (weeks[0]?.contributionDays[0]?.date) {
+    // Hari di JS: 0=Minggu, 1=Senin, ..., 6=Sabtu. Kita ubah agar 0=Senin
+    const dayIndex = new Date(weeks[0].contributionDays[0].date).getDay();
+    firstDayOfWeek = dayIndex === 0 ? 6 : dayIndex -1;
+  }
+  const emptyDays = Array(firstDayOfWeek).fill(null);
 
   return (
-    <div className="bg-gray-800/50 p-6 rounded-lg border border-gray-700">
-       <h3 className="text-lg font-bold text-white mb-4">Kalender Kontribusi Bulan Ini</h3>
-       <div className="grid grid-cols-7 grid-flow-col gap-1.5 justify-end">
-         {emptyDays.map((_, index) => (
-           <div key={`empty-${index}`} className="w-5 h-5 rounded-sm" />
-         ))}
-         {weeks.map((week, weekIndex) =>
-           week.contributionDays.map((day, dayIndex) => (
-             <div
-               key={day.date}
-               className={`w-5 h-5 rounded-sm ${getContributionColor(day.contributionCount)}`}
-               title={`${day.contributionCount} kontribusi pada ${day.date}`} // Tooltip sederhana
-             />
-           ))
-         )}
-       </div>
+    <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 flex-grow">
+      <h3 className="text-md font-bold text-white mb-4">Kalender Kontribusi</h3>
+      
+      {/* INI BAGIAN UTAMA YANG DIPERBAIKI */}
+      <div className="grid grid-cols-7 grid-flow-row gap-1.5">
+        {emptyDays.map((_, index) => (
+          <div key={`empty-${index}`} className="w-full aspect-square" />
+        ))}
+        {weeks.map((week) =>
+          week.contributionDays.map((day) => (
+            <div
+              key={day.date}
+              className={`w-full aspect-square rounded-sm ${getContributionColor(day.contributionCount)}`}
+              title={`${day.contributionCount} kontribusi pada ${day.date}`}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 }
