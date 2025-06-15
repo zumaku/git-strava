@@ -18,10 +18,10 @@ export async function GET() {
 
   const now = new Date();
   const fromDateISO = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-  const toDateISO = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString();
+  const toDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  const toDateISO = toDate.toISOString();
 
   try {
-    // LANGKAH 1: Dapatkan daftar repositori tempat pengguna berkontribusi
     const reposQuery = `
       query($username: String!, $fromDate: DateTime!, $toDate: DateTime!) {
         user(login: $username) {
@@ -50,9 +50,7 @@ export async function GET() {
 
     let totalAdditions = 0;
     let totalDeletions = 0;
-    const dailyStats: { [key: string]: number } = {};
 
-    // LANGKAH 2: Dapatkan statistik commit jika ada repositori
     if (uniqueRepos.length > 0) {
       const commitStatsQuery = `
         query($fromDate: GitTimestamp!, $toDate: GitTimestamp!, $authorId: ID!) {
@@ -62,7 +60,7 @@ export async function GET() {
                 target {
                   ... on Commit {
                     history(since: $fromDate, until: $toDate, author: { id: $authorId }) {
-                      nodes { additions deletions committedDate }
+                      nodes { additions deletions }
                     }
                   }
                 }
@@ -80,40 +78,28 @@ export async function GET() {
       const statsData = await statsResponse.json();
       if (statsData.errors) throw new Error(`Error fetching stats: ${JSON.stringify(statsData.errors)}`);
 
-      // LANGKAH 3: Proses semua data commit
       for (const key in statsData.data) {
           const repoData = statsData.data[key];
           if (repoData?.defaultBranchRef?.target?.history?.nodes) {
               for (const commit of repoData.defaultBranchRef.target.history.nodes) {
-                  // Akumulasi total
-                  totalAdditions += commit.additions;
-                  totalDeletions += commit.deletions;
-
-                  // Akumulasi data harian
-                  const date = new Date(commit.committedDate).toISOString().split('T')[0];
-                  const changes = commit.additions + commit.deletions;
-                  dailyStats[date] = (dailyStats[date] || 0) + changes;
+                  // --- PERUBAHAN KUNCI ADA DI 2 BARIS INI ---
+                  totalAdditions += (commit.additions || 0); // Memberi nilai default 0
+                  totalDeletions += (commit.deletions || 0); // Memberi nilai default 0
               }
           }
       }
     }
+    
+    const daysInMonth = toDate.getDate();
+    const totalChanges = totalAdditions + totalDeletions;
+    const averageChangesPerDay = daysInMonth > 0 ? totalChanges / daysInMonth : 0;
 
-    // Mengubah format data harian untuk Recharts dan mengurutkannya
-    const dailyStatsArray = Object.keys(dailyStats)
-      .sort((a, b) => new Date(a).getTime() - new Date(b).getTime()) // Urutkan berdasarkan tanggal
-      .map(date => ({
-        // Format tanggal menjadi '16 Jun' agar mudah dibaca di grafik
-        date: new Date(date).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }),
-        perubahan: dailyStats[date],
-    }));
-
-    // Data final yang akan dikirim ke frontend
     const processedData = {
       totalContributions: contributions.contributionCalendar.totalContributions,
       totalAdditions,
       totalDeletions,
       calendarWeeks: contributions.contributionCalendar.weeks,
-      dailyStats: dailyStatsArray,
+      averageChangesPerDay: averageChangesPerDay,
     };
 
     return NextResponse.json(processedData);
