@@ -1,102 +1,21 @@
-// app/api/github-stats/route.ts
+// File: app/api/github-stats/route.ts
+// KODE INI HANYA UNTUK TUJUAN DEBUGGING
 
-import { NextResponse, type NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/route";
 
-type Repo = { name: string; owner: { login: string; }; };
+export async function GET() {
+  console.log("\n--- MEMULAI DEBUG getServerSession ---");
 
-export async function GET(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+  // Kita hanya akan memanggil getServerSession dan tidak melakukan hal lain.
+  const session = await getServerSession(authOptions);
 
-  if (!token || !token.nodeId || !token.accessToken || !token.login) {
-    return NextResponse.json({ error: "Unauthorized: Invalid token data." }, { status: 401 });
-  }
+  // Kita cetak hasilnya ke terminal server untuk dilihat.
+  console.log("Hasil langsung dari getServerSession di dalam API Route:", session);
+  console.log("--- SELESAI DEBUG ---");
 
-  const { accessToken, login: username, nodeId: authorId } = token;
-
-  const now = new Date();
-  const fromDateISO = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-  const toDateISO = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString();
-
-  try {
-    const reposQuery = `
-      query($username: String!, $fromDate: DateTime!, $toDate: DateTime!) {
-        user(login: $username) {
-          contributionsCollection(from: $fromDate, to: $toDate) {
-            commitContributionsByRepository(maxRepositories: 100) {
-              repository { name owner { login } }
-            }
-            contributionCalendar { totalContributions weeks { contributionDays { contributionCount date } } }
-          }
-        }
-      }
-    `;
-
-    const reposResponse = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: { Authorization: `bearer ${accessToken}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ query: reposQuery, variables: { username, fromDate: fromDateISO, toDate: toDateISO } }),
-    });
-
-    const reposData = await reposResponse.json();
-    if (reposData.errors) throw new Error(`Error fetching repos: ${JSON.stringify(reposData.errors)}`);
-    
-    const contributions = reposData.data.user.contributionsCollection;
-    const repositories: Repo[] = contributions.commitContributionsByRepository.map((item: any) => item.repository);
-    const uniqueRepos = Array.from(new Map(repositories.map(repo => [`${repo.owner.login}/${repo.name}`, repo])).values());
-
-    let totalAdditions = 0;
-    let totalDeletions = 0;
-
-    if (uniqueRepos.length > 0) {
-      const commitStatsQuery = `
-        query($fromDate: GitTimestamp!, $toDate: GitTimestamp!, $authorId: ID!) {
-          ${uniqueRepos.map((repo, index) => `
-            repo${index}: repository(owner: "${repo.owner.login}", name: "${repo.name}") {
-              defaultBranchRef {
-                target {
-                  ... on Commit {
-                    history(since: $fromDate, until: $toDate, author: { id: $authorId }) {
-                      nodes { additions deletions }
-                    }
-                  }
-                }
-              }
-            }
-          `).join('\n')}
-        }`;
-      
-      const statsResponse = await fetch("https://api.github.com/graphql", {
-          method: "POST",
-          headers: { Authorization: `bearer ${accessToken}`, "Content-Type": "application/json" },
-          body: JSON.stringify({ query: commitStatsQuery, variables: { fromDate: fromDateISO, toDate: toDateISO, authorId } }),
-      });
-
-      const statsData = await statsResponse.json();
-      if (statsData.errors) throw new Error(`Error fetching stats: ${JSON.stringify(statsData.errors)}`);
-
-      for (const key in statsData.data) {
-          const repoData = statsData.data[key];
-          if (repoData?.defaultBranchRef?.target?.history?.nodes) {
-              for (const commit of repoData.defaultBranchRef.target.history.nodes) {
-                  totalAdditions += commit.additions;
-                  totalDeletions += commit.deletions;
-              }
-          }
-      }
-    }
-
-    const processedData = {
-      totalContributions: contributions.contributionCalendar.totalContributions,
-      totalAdditions,
-      totalDeletions,
-      calendarWeeks: contributions.contributionCalendar.weeks,
-    };
-
-    return NextResponse.json(processedData);
-
-  } catch (error: any) {
-    console.error("Detailed API Error:", error.message);
-    return NextResponse.json({ error: "Internal Server Error", details: error.message }, { status: 500 });
-  }
+  // Kita kembalikan seluruh objek sesi ini sebagai respons JSON.
+  // Hasilnya akan tampil di bagian "Raw Stats Data" di browser Anda.
+  return NextResponse.json(session);
 }
