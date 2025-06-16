@@ -17,7 +17,7 @@
   font-size: 1.2rem;
   font-weight: normal;
   color: white;
-  margin-bottom: -24px;
+  margin-bottom: -15px;
 }
 
 .statsWrapper {
@@ -38,7 +38,7 @@
 .statLabel {
   font-size: 1.5rem;
   font-weight: normal;
-  margin-bottom: 2px;
+  margin-bottom: -24px;
   color: white;
 }
 
