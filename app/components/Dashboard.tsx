@@ -9,10 +9,18 @@ import ShareableImage from './ShareableImage'; // Import komponen gambar kita
 import { useSession } from 'next-auth/react'; // Import useSession untuk mendapatkan nama
 import { Download } from 'lucide-react';
 
+// Mendefinisikan tipe data untuk 'calendarWeeks' secara spesifik
+interface ContributionDay {
+  contributionCount: number;
+  date: string;
+}
+interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
 interface StatsData {
   totalAdditions: number;
   totalDeletions: number;
-  calendarWeeks: any[];
+  calendarWeeks: ContributionWeek[];
   averageChangesPerDay: number;
 }
 
@@ -32,8 +40,13 @@ export default function Dashboard() {
         if (!response.ok) throw new Error('Gagal mengambil data statistik');
         const result = await response.json();
         setData(result);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        // Penanganan error yang lebih aman
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
       } finally {
         setIsLoading(false);
       }

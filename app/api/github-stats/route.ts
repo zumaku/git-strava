@@ -2,9 +2,12 @@
 
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
+// Mendefinisikan tipe data untuk kejelasan dan keamanan
 type Repo = { name: string; owner: { login: string; }; };
+type RepoContribution = { repository: Repo };
+type CommitNode = { additions: number; deletions: number; committedDate: string; };
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -45,7 +48,7 @@ export async function GET() {
     if (reposData.errors) throw new Error(`Error fetching repos: ${JSON.stringify(reposData.errors)}`);
     
     const contributions = reposData.data.user.contributionsCollection;
-    const repositories: Repo[] = contributions.commitContributionsByRepository.map((item: any) => item.repository);
+    const repositories: Repo[] = contributions.commitContributionsByRepository.map((item: RepoContribution) => item.repository);
     const uniqueRepos = Array.from(new Map(repositories.map(repo => [`${repo.owner.login}/${repo.name}`, repo])).values());
 
     let totalAdditions = 0;
@@ -81,7 +84,7 @@ export async function GET() {
       for (const key in statsData.data) {
           const repoData = statsData.data[key];
           if (repoData?.defaultBranchRef?.target?.history?.nodes) {
-              for (const commit of repoData.defaultBranchRef.target.history.nodes) {
+              for (const commit of repoData.defaultBranchRef.target.history.nodes as CommitNode[]) {
                   // --- PERUBAHAN KUNCI ADA DI 2 BARIS INI ---
                   totalAdditions += (commit.additions || 0); // Memberi nilai default 0
                   totalDeletions += (commit.deletions || 0); // Memberi nilai default 0
@@ -104,8 +107,13 @@ export async function GET() {
 
     return NextResponse.json(processedData);
 
-  } catch (error: any) {
-    console.error("Detailed API Error:", error.message);
-    return NextResponse.json({ error: "Internal Server Error", details: error.message }, { status: 500 });
+   } catch (error) {
+    // FIX: Penanganan error yang lebih aman
+    let errorMessage = "An unknown error occurred";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    console.error("Detailed API Error:", errorMessage);
+    return NextResponse.json({ error: "Internal Server Error", details: errorMessage }, { status: 500 });
   }
 }

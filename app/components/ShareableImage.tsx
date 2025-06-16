@@ -6,11 +6,18 @@ import styles from './ShareableImage.module.css'; // <-- Impor file CSS Module
 import Image from 'next/image';
 
 // Definisikan tipe data yang diterima komponen ini
+interface ContributionDay {
+  contributionCount: number;
+  date: string;
+}
+interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
 interface StatsData {
   totalAdditions: number;
   totalDeletions: number;
   averageChangesPerDay: number;
-  calendarWeeks: any[];
+  calendarWeeks: ContributionWeek[];
 }
 interface ShareableImageProps {
   data: StatsData;
@@ -26,7 +33,7 @@ const getContributionHexColor = (count: number): string => {
   return '#39d353';
 };
 
-const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data, username }, ref) => {
+const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data }, ref) => {
   const currentMonthName = new Date().toLocaleString('id-ID', { month: 'long' });
 
   return (
@@ -51,7 +58,7 @@ const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data, 
       <div className={styles.calendarContainer}>
         <div className={styles.calendarGrid}>
           {data.calendarWeeks.map((week) =>
-            week.contributionDays.map((day: any) => (
+            week.contributionDays.map((day: ContributionDay) => (
               <div
                 key={day.date}
                 className={styles.calendarCell}
