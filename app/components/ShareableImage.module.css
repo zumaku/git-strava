@@ -38,7 +38,7 @@
 .statLabel {
   font-size: 1.5rem;
   font-weight: normal;
-  margin-bottom: -24px;
+  margin-bottom: -30px;
   color: white;
 }
 
@@ -47,10 +47,11 @@
   font-weight: bold;
   color: white;
   line-height: 1;
+  margin-bottom: 20px;
 }
 
 .calendarContainer {
-  /* margin-top: 32px; */
+  margin-bottom: 32px;
 }
 
 .calendarGrid {
@@ -61,8 +62,8 @@
 }
 
 .calendarCell {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 4px;
 }
 
