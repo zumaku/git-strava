@@ -27,7 +27,7 @@ export default function HomePage() {
                         className="flex items-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white font-semibold py-2 px-6 rounded-lg transition-colors"
                     >
                         <Gift size={18} />
-                        Traktir di Saweria
+                        By Me Coffee
                     </a>
                 </div>
             </div>

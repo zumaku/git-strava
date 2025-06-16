@@ -5,41 +5,39 @@
 <h1 align="center">Git-Strava</h1>
 
 <p align="center">
-  Strava Overlay Trends, but for Developers. Dapatkan ringkasan aktivitas GitHub bulanan Anda dalam format gambar yang siap dibagikan.
+  Strava Overlay Trends, but for Developers. Get your monthly GitHub activity summary in a shareable image format.
   <br />
   <br />
-  <a href="https://github.com/zumaku/git-strava/issues">Laporkan Bug</a>
+  <a href="https://github.com/zumaku/git-strava/issues">Report a Bug</a>
   ·
-  <a href="https://github.com/zumaku/git-strava/issues">Minta Fitur Baru</a>
+  <a href="https://github.com/zumaku/git-strava/issues">Request New Features</a>
 </p>
 
 <p align="center">
   <a href="https://saweria.co/your-username">
-    <img src="https://img.shields.io/badge/Traktir%20di-Saweria-brightgreen?style=for-the-badge&logo=saweria" alt="Traktir di Saweria">
+    <img src="https://img.shields.io/badge/Sponsor%20on-Saweria-brightgreen?style=for-the-badge&logo=saweria" alt="Sponsor on Saweria">
   </a>
 </p>
 
-## Tentang Proyek
+## About The Project
 
-![Git-Strava Screenshot](./public/screenshot-dashboard.png)
+**Git-Strava** is a web application that allows developers to log in with their GitHub account and automatically generate a monthly activity summary. Inspired by the activity summaries that runners often share on Strava, the project aims to provide a similar “overlay” for developers to showcase their productivity and contributions on GitHub.
 
-**Git-Strava** adalah sebuah aplikasi web yang memungkinkan developer untuk masuk dengan akun GitHub mereka dan secara otomatis menghasilkan ringkasan aktivitas bulanan. Terinspirasi dari ringkasan aktivitas yang sering dibagikan oleh para pelari di Strava, proyek ini bertujuan untuk memberikan "overlay" serupa bagi para developer untuk menunjukkan produktivitas dan kontribusi mereka di GitHub.
+The final result of the summary can be downloaded as a 9:16 PNG image, perfect for sharing on social media like Instagram Stories.
 
-Hasil akhir dari ringkasan ini dapat diunduh sebagai gambar PNG dengan rasio 9:16, sempurna untuk dibagikan di media sosial seperti Instagram Stories.
+### Main Features
 
-### Fitur Utama
+* Secure login using GitHub account (OAuth 2.0).
+* Shows total monthly statistics:
+  * LOC (Lines of Code) Additions
+  * LOC (Lines of Code) Deletions
+  * Average lines of code changed per day
+* Authentic monthly contribution calendar visualization.
+* Download summary as PNG image with 9:16 ratio.
 
-* Login aman menggunakan akun GitHub (OAuth 2.0).
-* Menampilkan total statistik bulanan:
-    * LOC (Lines of Code) Additions
-    * LOC (Lines of Code) Deletions
-    * Rata-rata perubahan baris kode per hari
-* Visualisasi kalender kontribusi bulanan yang otentik.
-* Fitur unduh ringkasan sebagai gambar PNG dengan rasio 9:16.
+### Built With
 
-### Dibangun Menggunakan
-
-Daftar teknologi utama yang digunakan dalam proyek ini:
+List of key technologies used in this project:
 
 * [Next.js](https://nextjs.org/)
 * [React](https://reactjs.org/)
@@ -49,55 +47,55 @@ Daftar teknologi utama yang digunakan dalam proyek ini:
 * [html2canvas](https://html2canvas.hertzen.com/)
 * [Lucide React](https://lucide.dev/)
 
-## Memulai
+## Getting Started
 
-Untuk menjalankan proyek ini di lingkungan lokal Anda, ikuti langkah-langkah sederhana berikut.
+To run this project in your local environment, follow these simple steps.
 
-### Prasyarat
+### Prerequisites
 
-Pastikan Anda sudah menginstal Node.js dan npm (atau yarn/pnpm) di mesin Anda.
+Make sure you have Node.js and npm (or yarn/pnpm) installed on your machine.
 
-### Instalasi Lokal
+### Local Installation
 
-1.  **Clone repositori ini:**
+1.  **Clone this repository:**
     ```sh
     git clone [https://github.com/zumaku/git-strava.git](https://github.com/zumaku/git-strava.git)
     ```
-2.  **Masuk ke direktori proyek:**
+2.  **Enter the project directory:**
     ```sh
     cd git-strava
     ```
-3.  **Install semua dependensi:**
+3.  **Install all dependencies:**
     ```sh
     npm install
     ```
-4.  **Konfigurasi Environment Variables:**
-    * Buat file `.env.local` di root proyek.
-    * Daftarkan aplikasi OAuth baru di [Developer settings](https://github.com/settings/developers) GitHub Anda.
-    * Set **Authorization callback URL** ke `http://localhost:3000/api/auth/callback/github`.
-    * Isi file `.env.local` dengan kredensial Anda:
+4.  **Configure Environment Variables:**
+    * Create a `.env.local` file in the project root.
+    * Register a new OAuth application in your GitHub [Developer settings](https://github.com/settings/developers).
+    * Set the **Authorization callback URL** to `http://localhost:3000/api/auth/callback/github`.
+    * Fill the `.env.local` file with your credentials:
         ```env
-        GITHUB_ID=CLIENT_ID_ANDA
-        GITHUB_SECRET=CLIENT_SECRET_ANDA
-        AUTH_SECRET=STRING_ACAK_YANG_SANGAT_RAHASIA
+        GITHUB_ID=YOUR_CLIENT_ID
+        GITHUB_SECRET=YOUR_CLIENT_SECRET
+        AUTH_SECRET=A_VERY_SECRET_RANDOM_STRING
         ```
-5.  **Jalankan server development:**
+5.  **Run the development server:**
     ```sh
     npm run dev
     ```
-    Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
+    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Berkontribusi
+## Contributing
 
-Kontribusi dari Anda adalah hal yang membuat komunitas open source menjadi tempat yang luar biasa untuk belajar, menginspirasi, dan berkreasi. Setiap kontribusi yang Anda berikan sangat **kami hargai**.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-Jika Anda memiliki saran untuk membuat proyek ini lebih baik, silakan fork repositori ini dan buat *pull request*. Anda juga bisa membuka *issue* dengan tag "enhancement".
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 
-Jangan lupa untuk memberi bintang pada proyek ini! Terima kasih!
+Don't forget to give the project a star! Thanks!
 
-Langkah-langkah untuk berkontribusi:
-1.  **Fork** Proyek ini.
-2.  Buat Branch Fitur Anda (`git checkout -b feature/FiturBaruYangKeren`).
-3.  Commit Perubahan Anda (`git commit -m 'Menambahkan FiturBaruYangKeren'`).
-4.  Push ke Branch (`git push origin feature/FiturBaruYangKeren`).
-5.  Buka sebuah **Pull Request**.
+Steps to contribute:
+1.  **Fork** the Project.
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the Branch (`git push origin feature/AmazingFeature`).
+5.  Open a **Pull Request**.
