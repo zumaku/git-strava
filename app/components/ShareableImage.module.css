@@ -1,0 +1,73 @@
+/* File: app/components/ShareableImage.module.css */
+
+.container {
+  width: 600px;
+  background-color: transparent;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: white;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: normal;
+  color: white;
+  margin-bottom: -24px;
+}
+
+.statsWrapper {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statLabel {
+  font-size: 1rem;
+  font-weight: normal;
+  margin-bottom: 2px;
+  color: white;
+}
+
+.statValue {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: white;
+  line-height: 1;
+}
+
+.calendarContainer {
+  /* margin-top: 32px; */
+}
+
+.calendarGrid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendarCell {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.footer {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 24px;
+  color: white;
+}
