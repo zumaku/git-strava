@@ -3,6 +3,7 @@
 
 import React, { forwardRef } from 'react';
 import styles from './ShareableImage.module.css'; // <-- Impor file CSS Module
+import Image from 'next/image';
 
 // Definisikan tipe data yang diterima komponen ini
 interface StatsData {
@@ -18,7 +19,7 @@ interface ShareableImageProps {
 
 // Fungsi helper untuk warna kalender, tetap sama
 const getContributionHexColor = (count: number): string => {
-  if (count === 0) return '#2d333b';
+  if (count === 0) return '#B1B1B1';
   if (count <= 2) return '#0e4429';
   if (count <= 6) return '#006d32';
   if (count <= 12) return '#26a641';
@@ -46,7 +47,7 @@ const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data, 
         </div>
       </div>
 
-      <h2 className={styles.title}>{currentMonthName} Callender</h2>
+      <h2 className={styles.title}>{currentMonthName} Commits Callender</h2>
       <div className={styles.calendarContainer}>
         <div className={styles.calendarGrid}>
           {data.calendarWeeks.map((week) =>
@@ -61,7 +62,7 @@ const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data, 
         </div>
       </div>
 
-      <p className={styles.footer}>GIT-STRAVA</p>
+      <Image src={'/git-strava title logo.svg'} width={200} height={50} alt="Git-Strava Mark" className={styles.footer} />
     </div>
   );
 });

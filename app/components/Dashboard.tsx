@@ -62,34 +62,34 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="w-full max-w-4xl mx-auto flex flex-col gap-6">
-        {/* Tombol Download ditambahkan di sini */}
-        <div className="flex justify-end">
-          <button
-            onClick={handleDownload}
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition-colors"
-          >
-            <Download size={18} />
-            Download as PNG
-          </button>
-        </div>
-
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-2 mt-6">
         {/* Tata letak dashboard Anda yang sekarang */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          <div className="flex flex-col gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit">
+          <div className="flex flex-col gap-6 w-full md:w-fit">
             <StatCard title="LOC Additions" value={`+${data.totalAdditions.toLocaleString()}`} valueColor="text-green-400"/>
             <StatCard title="LOC Deletions" value={`-${data.totalDeletions.toLocaleString()}`} valueColor="text-red-400"/>
             <StatCard title="Lines Changed / Day" value={Math.round(data.averageChangesPerDay).toLocaleString()}/>
           </div>
-          <div className="flex">
+          <div className="flex h-full">
             <ContributionCalendar weeks={data.calendarWeeks} />
           </div>
         </div>
       </div>
+
+      {/* Tombol Download ditambahkan di sini */}
+      <div className="flex justify-end mt-8">
+        <button
+          onClick={handleDownload}
+          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition-colors"
+        >
+          <Download size={18} />
+          Download Overlay
+        </button>
+      </div>
       
       {/* Komponen untuk di-download, dirender tapi disembunyikan */}
-      {/* <div style={{ position: 'absolute', left: '-9999px', top: 0 }}> */}
-      <div>
+      <div style={{ position: 'absolute', left: '-9999px', top: 0 }}>
+      {/* <div> */}
         <ShareableImage ref={imageRef} data={data} username={session.user.name} />
       </div>
     </>

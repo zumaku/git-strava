@@ -1,7 +1,8 @@
 /* File: app/components/ShareableImage.module.css */
 
 .container {
-  width: 600px;
+  width: 540px;
+  height: 960px;
   background-color: transparent;
   padding: 48px;
   display: flex;
@@ -13,7 +14,7 @@
 }
 
 .title {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: normal;
   color: white;
   margin-bottom: -24px;
@@ -35,14 +36,14 @@
 }
 
 .statLabel {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: normal;
   margin-bottom: 2px;
   color: white;
 }
 
 .statValue {
-  font-size: 3.5rem;
+  font-size: 5rem;
   font-weight: bold;
   color: white;
   line-height: 1;
@@ -60,14 +61,14 @@
 }
 
 .calendarCell {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
 }
 
 .footer {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 24px;
-  color: white;
+  /* font-size: 1.5rem; */
+  /* font-weight: bold; */
+  /* color: white; */
+  /* margin-top: 24px; */
 }

@@ -41,7 +41,7 @@ export default function ContributionCalendar({ weeks }: ContributionCalendarProp
   });
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 w-fit h-full">
+    <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 w-full md:w-fit h-full">
       <h3 className="text-lg font-bold text-white mb-4">{monthName}</h3>
       
       <div className="w-full overflow-x-auto pb-2">

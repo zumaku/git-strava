@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Git-Strava',
   description: 'Strava Overlay Trends, but for Developers. Get your monthly GitHub activity recap now.',
+  icons: {
+    icon: 'git-strava_favicon.svg'
+  },
 };
 
 export default function RootLayout({
