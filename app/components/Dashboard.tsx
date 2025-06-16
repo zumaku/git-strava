@@ -80,7 +80,7 @@ export default function Dashboard() {
       <div className="flex justify-end mt-8">
         <button
           onClick={handleDownload}
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition-colors"
+          className="flex items-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white font-bold py-2 px-4 rounded-md transition-colors"
         >
           <Download size={18} />
           Download Overlay

@@ -6,6 +6,7 @@ import AuthButton from './components/AuthButton';
 import Dashboard from './components/Dashboard';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import HomePage from './components/Homepage';
 
 export default function Home() {
   const { status } = useSession();
@@ -21,17 +22,7 @@ export default function Home() {
       {status === 'authenticated' ? (
         <Dashboard />
       ): (
-        <div className="flex-grow flex flex-col items-center justify-center text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Strava Overlay Trends, but for Developers.
-          </h2>
-          <p className="text-lg text-gray-400">
-            Get your monthly Github recap, so you can overlay it in your story.
-          </p>
-          <p className="text-lg text-gray-400">
-            Login with GitHub to see your activity summary.
-          </p>
-        </div>
+        <HomePage />
       )}
     </main>
   );
