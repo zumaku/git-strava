@@ -33,7 +33,7 @@ export default function AuthButton() {
           className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white font-bold py-2 px-4 rounded-md transition-colors"
         >
           <LogOut size={18} />
-          <p className='hidden sm:block'>Logout</p>
+          <p className='hidden sm:block' >Logout</p>
         </button>
       </div>
     );
@@ -45,8 +45,8 @@ export default function AuthButton() {
       onClick={() => signIn('github')}
       className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white font-bold py-2 px-4 rounded-md transition-colors"
     >
-      <LogIn size={18} />
-      <p className='hidden sm:block'>Login with GitHub</p>
+      <LogIn className='hidden sm:block' size={18} />
+      Login
     </button>
   );
 }
