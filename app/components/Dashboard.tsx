@@ -3,16 +3,15 @@
 
 import { useState, useEffect } from 'react';
 import StatCard from './StatCard';
-import { Plus, Minus, GitCommitHorizontal } from 'lucide-react'; // Tambahkan ikon baru
 import ContributionCalendar from './ContributionCalendar';
 
-// Definisikan tipe data baru yang kita harapkan dari API
+// Definisikan tipe data yang kita harapkan dari API
 interface StatsData {
   totalContributions: number;
   totalAdditions: number;
   totalDeletions: number;
   calendarWeeks: any[];
-  averageChangesPerDay: number; // Properti baru
+  averageChangesPerDay: number;
 }
 
 export default function Dashboard() {
@@ -41,22 +40,28 @@ export default function Dashboard() {
   if (!data) return <p className="text-white">Tidak ada data untuk ditampilkan.</p>;
 
   return (
-    // TATA LETAK BARU: 2 KOLOM
-    <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 w-fit">
       
-      {/* Kolom Kiri: berisi 3 Kartu Statistik */}
-      <div className="flex flex-col gap-6">
-        <StatCard title="Baris Ditambahkan" value={data.totalAdditions} Icon={Plus} />
-        <StatCard title="Baris Dihapus" value={data.totalDeletions} Icon={Minus} />
+      {/* Kolom Kiri: berisi 3 Kartu Statistik yang sudah diubah */}
+      <div className="flex flex-col gap-6 w-full md:w-fit">
         <StatCard 
-          title="Rata-rata Perubahan per Hari" 
-          value={Math.round(data.averageChangesPerDay)} // Kita bulatkan angkanya
-          Icon={GitCommitHorizontal} 
+          title="LOC Additions" 
+          value={`+${data.totalAdditions.toLocaleString()}`}
+          valueColor="text-green-400"
+        />
+        <StatCard 
+          title="LOC Deletions"
+          value={`-${data.totalDeletions.toLocaleString()}`}
+          valueColor="text-red-400"
+        />
+        <StatCard 
+          title="Lines Changed / Day" 
+          value={Math.round(data.averageChangesPerDay).toLocaleString()}
         />
       </div>
 
       {/* Kolom Kanan: berisi Kalender Kontribusi */}
-      <div className="flex">
+      <div className="flex h-full">
         <ContributionCalendar weeks={data.calendarWeeks} />
       </div>
     </div>
