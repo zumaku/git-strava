@@ -101,8 +101,8 @@ export default function Dashboard() {
       </div>
       
       {/* Komponen untuk di-download, dirender tapi disembunyikan */}
-      {/* <div style={{ position: 'absolute', left: '-9999px', top: 0 }}> */}
-      <div className='p-10'>
+      <div style={{ position: 'absolute', left: '-9999px', top: 0, paddingTop: '40px' }}>
+      {/* <div className='p-10'> */}
         <ShareableImage ref={imageRef} data={data} username={session.user.name} />
       </div>
     </>

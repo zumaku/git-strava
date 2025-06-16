@@ -15,7 +15,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center p-8 bg-gray-900">
       <nav className="w-full flex justify-between items-center">
         {/* <h1 className="text-2xl font-bold text-white">Git-Strava</h1> */}
-        <Image src={'/git-strava primary logo.png'} width={200} height={50} alt='Git-Starava Primary Logo' />
+        <Image src={'/git-strava primary logo.png'} width={170} height={50} alt='Git-Starava Primary Logo' />
         <AuthButton />
       </nav>
 
