@@ -21,7 +21,7 @@
 
 ## Tentang Proyek
 
-![Git-Strava Screenshot](screenshot-dashboard.png)
+![Git-Strava Screenshot](./public/screenshot-dashboard.png)
 
 **Git-Strava** adalah sebuah aplikasi web yang memungkinkan developer untuk masuk dengan akun GitHub mereka dan secara otomatis menghasilkan ringkasan aktivitas bulanan. Terinspirasi dari ringkasan aktivitas yang sering dibagikan oleh para pelari di Strava, proyek ini bertujuan untuk memberikan "overlay" serupa bagi para developer untuk menunjukkan produktivitas dan kontribusi mereka di GitHub.
 
@@ -47,8 +47,7 @@ Daftar teknologi utama yang digunakan dalam proyek ini:
 * [Tailwind CSS](https://tailwindcss.com/)
 * [NextAuth.js](https://next-auth.js.org/)
 * [html2canvas](https://html2canvas.hertzen.com/)
-* [Recharts](https://recharts.org/) (pada versi awal)
-* [Lucide React](https://lucide.dev/) (untuk ikon)
+* [Lucide React](https://lucide.dev/)
 
 ## Memulai
 
