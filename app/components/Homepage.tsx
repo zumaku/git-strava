@@ -34,7 +34,7 @@ export default function HomePage() {
 
             {/* --- SEKSI BARU: CARA KERJA --- */}
             <div className="w-full max-w-6xl mx-auto py-16 px-4">
-                <h3 className="text-3xl font-bold text-white text-center mb-12">3 Langkah Mudah</h3>
+                <h3 className="text-3xl font-bold text-white text-center mb-12">3 Easy Steps</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     
                     {/* Kolom Kiri: Langkah-langkah */}
@@ -44,8 +44,8 @@ export default function HomePage() {
                                 <LogIn size={24} />
                             </div>
                             <div>
-                                <h4 className="font-bold text-xl text-white">1. Login dengan GitHub</h4>
-                                <p className="text-gray-400 mt-1">Otentikasi akun Anda dengan aman. Kami hanya meminta izin untuk membaca aktivitas publik dan privat Anda.</p>
+                                <h4 className="font-bold text-xl text-white">1. Login with GitHub</h4>
+                                <p className="text-gray-400 mt-1">Securely authenticate your account. We only ask for permission to read your public and private activity.</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
@@ -53,8 +53,8 @@ export default function HomePage() {
                                 <Bot size={24} />
                             </div>
                             <div>
-                                <h4 className="font-bold text-xl text-white">2. Proses Otomatis</h4>
-                                <p className="text-gray-400 mt-1">Aplikasi akan mengambil dan memproses data kontribusi Anda selama sebulan terakhir secara otomatis.</p>
+                                <h4 className="font-bold text-xl text-white">2. Automated Process</h4>
+                                <p className="text-gray-400 mt-1">The application will automatically retrieve and process your contribution data for the last month.</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
@@ -62,8 +62,8 @@ export default function HomePage() {
                                 <Download size={24} />
                             </div>
                             <div>
-                                <h4 className="font-bold text-xl text-white">3. Unduh & Bagikan</h4>
-                                <p className="text-gray-400 mt-1">Buat overlay, lihat pratinjaunya, dan unduh hasilnya sebagai gambar PNG yang siap dibagikan ke media sosial.</p>
+                                <h4 className="font-bold text-xl text-white">3. Download & Paste In Your Video</h4>
+                                <p className="text-gray-400 mt-1">Create an overlay, preview it, and download the result as a PNG image ready to use in your vidio.</p>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@ export default function HomePage() {
                     {/* Kolom Kanan: Placeholder Video */}
                     <div className="aspect-video bg-gray-900 border border-gray-700 rounded-lg flex flex-col justify-center items-center text-gray-500">
                         <PlayCircle size={64} />
-                        <p className="mt-4 font-semibold">Video Demo Segera Hadir</p>
+                        <p className="mt-4 font-semibold">Demo Video Coming Soon</p>
                     </div>
 
                 </div>
@@ -79,8 +79,7 @@ export default function HomePage() {
             {/* --- AKHIR SEKSI BARU --- */}
 
             <p className="text-lg text-gray-400 mt-10">
-                Created by
-                <a href="https://github.com/zumaku" className="font-bold text-white hover:underline"> Zumaku</a>
+                Created by <a href="https://github.com/zumaku" className="font-bold text-white hover:underline">Zumaku</a>
             </p>
         </div>
     )

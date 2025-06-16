@@ -34,7 +34,7 @@ const getContributionHexColor = (count: number): string => {
 };
 
 const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data }, ref) => {
-  const currentMonthName = new Date().toLocaleString('id-ID', { month: 'long' });
+  const currentMonthName = new Date().toLocaleString('en-EN', { month: 'long' });
 
   return (
     <div ref={ref} className={styles.container}>

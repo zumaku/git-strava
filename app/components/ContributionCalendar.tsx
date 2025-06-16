@@ -35,7 +35,7 @@ export default function ContributionCalendar({ weeks }: ContributionCalendarProp
     return <div>Format data kontribusi tidak valid.</div>;
   }
 
-  const monthName = new Date(firstDate).toLocaleString('id-ID', {
+  const monthName = new Date(firstDate).toLocaleString('en-EN', {
     month: 'long',
     year: 'numeric'
   });
@@ -57,7 +57,7 @@ export default function ContributionCalendar({ weeks }: ContributionCalendarProp
               <div
                 key={day.date}
                 className={`w-8 h-8 rounded-md transition-colors ${getContributionColor(day.contributionCount)}`}
-                title={`${day.contributionCount} kontribusi pada ${new Date(day.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`}
+                title={`${day.contributionCount} kontribusi pada ${new Date(day.date).toLocaleDateString('en-EN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`}
               />
             ))
           )}

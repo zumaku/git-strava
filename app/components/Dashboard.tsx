@@ -69,7 +69,7 @@ export default function Dashboard() {
     }
   };
 
-  if (isLoading) return <p className="text-white animate-pulse">Memuat statistik Anda...</p>;
+  if (isLoading) return <p className="text-white animate-pulse">Loading your statistics...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
   if (!data || !session?.user?.name) return <p className="text-white">Tidak ada data untuk ditampilkan.</p>;
 
