@@ -4,10 +4,9 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
-// Mendefinisikan tipe data untuk kejelasan dan keamanan
 type Repo = { name: string; owner: { login: string; }; };
 type RepoContribution = { repository: Repo };
-type CommitNode = { additions: number; deletions: number; committedDate: string; };
+type CommitNode = { oid: string; additions: number; deletions: number; committedDate: string; };
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -45,7 +44,11 @@ export async function GET() {
     });
 
     const reposData = await reposResponse.json();
+    
     if (reposData.errors) throw new Error(`Error fetching repos: ${JSON.stringify(reposData.errors)}`);
+    if (!reposData.data || !reposData.data.user) {
+      throw new Error("Could not find user data or contributions in GitHub API response.");
+    }
     
     const contributions = reposData.data.user.contributionsCollection;
     const repositories: Repo[] = contributions.commitContributionsByRepository.map((item: RepoContribution) => item.repository);
@@ -53,17 +56,30 @@ export async function GET() {
 
     let totalAdditions = 0;
     let totalDeletions = 0;
+    
+    const processedCommitOids = new Set<string>();
 
     if (uniqueRepos.length > 0) {
       const commitStatsQuery = `
         query($fromDate: GitTimestamp!, $toDate: GitTimestamp!, $authorId: ID!) {
           ${uniqueRepos.map((repo, index) => `
             repo${index}: repository(owner: "${repo.owner.login}", name: "${repo.name}") {
-              defaultBranchRef {
-                target {
-                  ... on Commit {
-                    history(since: $fromDate, until: $toDate, author: { id: $authorId }) {
-                      nodes { additions deletions }
+              
+              # --- PERUBAHAN UTAMA ADA DI BARIS INI ---
+              # Menghapus 'orderBy' karena PUSHED_DATE tidak valid untuk refs
+              refs(refPrefix: "refs/heads/", first: 20) {
+                nodes {
+                  name
+                  target {
+                    ... on Commit {
+                      history(since: $fromDate, until: $toDate, author: { id: $authorId }) {
+                        nodes {
+                          oid
+                          additions
+                          deletions
+                          committedDate
+                        }
+                      }
                     }
                   }
                 }
@@ -83,11 +99,17 @@ export async function GET() {
 
       for (const key in statsData.data) {
           const repoData = statsData.data[key];
-          if (repoData?.defaultBranchRef?.target?.history?.nodes) {
-              for (const commit of repoData.defaultBranchRef.target.history.nodes as CommitNode[]) {
-                  // --- PERUBAHAN KUNCI ADA DI 2 BARIS INI ---
-                  totalAdditions += (commit.additions || 0); // Memberi nilai default 0
-                  totalDeletions += (commit.deletions || 0); // Memberi nilai default 0
+          if (repoData?.refs?.nodes) {
+              for (const branch of repoData.refs.nodes) {
+                  if (branch?.target?.history?.nodes) {
+                      for (const commit of branch.target.history.nodes as CommitNode[]) {
+                          if (!processedCommitOids.has(commit.oid)) {
+                              totalAdditions += (commit.additions || 0);
+                              totalDeletions += (commit.deletions || 0);
+                              processedCommitOids.add(commit.oid);
+                          }
+                      }
+                  }
               }
           }
       }
@@ -107,8 +129,7 @@ export async function GET() {
 
     return NextResponse.json(processedData);
 
-   } catch (error) {
-    // FIX: Penanganan error yang lebih aman
+  } catch (error) {
     let errorMessage = "An unknown error occurred";
     if (error instanceof Error) {
       errorMessage = error.message;
