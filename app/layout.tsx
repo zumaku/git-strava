@@ -9,7 +9,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Git-Strava',
-  description: 'Strava Overlay Trends, but for Developers. Get your monthly GitHub activity recap now.',
+  description: 'Strava Overlay Trends, but for Developers. Get your monthly GitHub activity recap now. Generate and download your monthly GitHub activity summary. See your stats like LOC additions, deletions, and contribution calendar, inspired by Strava.',
+  keywords: ['github', 'recap', 'stats', 'wrapper', 'developer', 'git', 'strava', 'overlay', 'zumaku'],
+  authors: [{ name: 'Zumaku', url: 'https://github.com/zumaku' }],
+  creator: 'Zumaku',
   icons: {
     icon: 'git-strava_favicon.svg'
   },
