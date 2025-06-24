@@ -81,6 +81,9 @@ export default function HomePage() {
                                 loop 
                                 playsInline
                                 autoPlay
+                                controls 
+                                controlsList="nodownload nofullscreen noremoteplayback"
+                                disablePictureInPicture
                             >
                                 Browser Anda tidak mendukung tag video.
                             </video>
