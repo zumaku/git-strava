@@ -1,4 +1,4 @@
-import { Star, Gift, LogIn, Bot, Download, PlayCircle } from 'lucide-react'; // <-- Menambahkan ikon baru
+import { Star, Gift, LogIn, Bot, Download } from 'lucide-react'; // <-- Menambahkan ikon baru
 
 export default function HomePage() {
     return (
@@ -35,7 +35,7 @@ export default function HomePage() {
             {/* --- SEKSI BARU: CARA KERJA --- */}
             <div className="w-full max-w-6xl mx-auto py-16 px-4">
                 <h3 className="text-3xl font-bold text-white text-center mb-12">3 Easy Steps</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
                     
                     {/* Kolom Kiri: Langkah-langkah */}
                     <div className="flex flex-col gap-8 text-left">
@@ -69,9 +69,20 @@ export default function HomePage() {
                     </div>
 
                     {/* Kolom Kanan: Placeholder Video */}
-                    <div className="aspect-video bg-gray-900 border border-gray-700 rounded-lg flex flex-col justify-center items-center text-gray-500">
-                        <PlayCircle size={64} />
-                        <p className="mt-4 font-semibold">Demo Video Coming Soon</p>
+                    {/* Kolom Kanan: Video Demo yang Diperbarui */}
+                    <div className="w-full max-w-2xs mx-auto aspect-[9/16] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden">
+                        <video 
+                            className="w-full h-full object-cover"
+                            src="/gitstrava_by_zuma.mp4"
+                            loop 
+                            playsInline
+                            controls 
+                            controlsList="nodownload nofullscreen noremoteplayback"
+                            disablePictureInPicture
+                        >
+                            Browser Anda tidak mendukung tag video.
+                        </video>
+
                     </div>
 
                 </div>
