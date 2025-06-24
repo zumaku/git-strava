@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="./public/git-strava primary logo.png" alt="Git-Strava Logo" width="400"/>
+  <a href="https://gitstrava.vercel.app">
+    <img src="./public/git-strava primary logo.png" alt="Git-Strava Logo" width="400"/>
+  </a>
 </p>
 
 <h1 align="center">Git-Strava</h1>
@@ -14,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="https://saweria.co/your-username">
+  <a href="https://saweria.co/zumakuu">
     <img src="https://img.shields.io/badge/Sponsor%20on-Saweria-brightgreen?style=for-the-badge&logo=saweria" alt="Sponsor on Saweria">
   </a>
 </p>
