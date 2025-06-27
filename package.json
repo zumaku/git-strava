@@ -15,6 +15,7 @@
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "recharts": "^2.15.3"
   },
   "devDependencies": {

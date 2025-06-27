@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { NextAuthProvider } from './providers';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,7 +30,15 @@ export default function RootLayout({
         <meta name="google-site-verification" content="b9vZXO3othX2eP3PFFKm_Zf_gK4lb1FXzo8VuZ427T8" />
       </head>
       <body className={inter.className}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          <Toaster 
+            position="top-center"
+            toastOptions={{
+              duration: 8000, // Notifikasi akan tampil selama 8 detik
+            }}
+          />
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   );

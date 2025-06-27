@@ -48,6 +48,7 @@ List of key technologies used in this project:
 * [NextAuth.js](https://next-auth.js.org/)
 * [html2canvas](https://html2canvas.hertzen.com/)
 * [Lucide React](https://lucide.dev/)
+* [react-hot-toast](https://react-hot-toast.com/)
 
 ## Getting Started
 

@@ -8,6 +8,8 @@ import html2canvas from 'html2canvas'; // Import library
 import ShareableImage from './ShareableImage'; // Import komponen gambar kita
 import { useSession } from 'next-auth/react'; // Import useSession untuk mendapatkan nama
 import { Download } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import SuccessToast from './SuccessToast';
 
 // Mendefinisikan tipe data untuk 'calendarWeeks' secara spesifik
 interface ContributionDay {
@@ -65,6 +67,9 @@ export default function Dashboard() {
         link.href = canvas.toDataURL('image/png');
         link.download = `git-strava-${session?.user?.login}-${new Date().toISOString().split('T')[0]}.png`;
         link.click();
+        toast.custom((t) => (
+          <SuccessToast t={t} />
+        ));
       });
     }
   };
