@@ -23,7 +23,7 @@ export default function SuccessToast({ t }: SuccessToastProps) {
           <div className="ml-3 flex-1">
             <p className="text-base font-medium text-white">Enjoy the Trend!</p>
             <p className="mt-1 text-sm text-gray-400">
-              Don't forget to tag <a href="https://www.instagram.com/fadliinlov3/" target="_blank" rel="noopener noreferrer" className="font-bold text-indigo-400 hover:underline">@fadliinlov3</a> on your Instagram story!
+              Don't forget to tag <a href="https://www.instagram.com/fadliinlov3/" target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:underline">@fadliinlov3</a> on your Instagram story!
             </p>
             <div className="mt-4 flex gap-4">
                 <a 
@@ -39,7 +39,7 @@ export default function SuccessToast({ t }: SuccessToastProps) {
                     href="https://saweria.co/zumakuu"
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-[#00A358] hover:bg-[#008f4c] text-white text-sm font-semibold py-1.5 px-3 rounded-lg transition-colors"
+                    className="flex items-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white text-sm font-semibold py-1.5 px-3 rounded-lg transition-colors"
                 >
                     <Gift size={16} />
                     Support
