@@ -23,7 +23,7 @@ export default function SuccessToast({ t }: SuccessToastProps) {
           <div className="ml-3 flex-1">
             <p className="text-base font-medium text-white">Enjoy the Trend!</p>
             <p className="mt-1 text-sm text-gray-400">
-              Don't forget to tag <a href="https://www.instagram.com/fadliinlov3/" target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:underline">@fadliinlov3</a> on your Instagram story!
+              Don&apos;t forget to tag <a href="https://www.instagram.com/fadliinlov3/" target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:underline">@fadliinlov3</a> on your Instagram story!
             </p>
             <div className="mt-4 flex gap-4">
                 <a 
