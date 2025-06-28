@@ -52,7 +52,7 @@ export default function SuccessToast({ t }: SuccessToastProps) {
       <div className="absolute top-2 right-2">
         <button
           onClick={() => toast.dismiss(t.id)}
-          className="inline-flex items-center justify-center p-2 rounded-full text-gray-400 hover:text-white hover:bg-gray-700/50 focus:outline-none"
+          className="inline-flex items-center justify-center p-2 rounded-full text-gray-400 hover:text-white hover:bg-gray-700/50 hover:cursor-pointer focus:outline-none"
         >
           <span className="sr-only">Close</span>
           <X size={20} />

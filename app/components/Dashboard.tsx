@@ -127,11 +127,11 @@ export default function Dashboard() {
 
       <div className="flex flex-col w-full gap-3">
         <div className="flex items-center mt-4 w-full justify-between bg-gray-800 p-2 rounded-lg">
-          <button onClick={() => changeMonth(-1)} className="flex-grow p-2 rounded-md hover:bg-gray-700">
+          <button onClick={() => changeMonth(-1)} className="flex-grow p-2 rounded-md hover:bg-gray-700 hover:cursor-pointer">
             <ChevronLeft size={20} className="text-white" />
           </button>
           <h2 className="text-xl font-bold text-white text-center px-4">{monthYearLabel}</h2>
-          <button onClick={() => changeMonth(1)} className="flex justify-end flex-grow p-2 rounded-md hover:bg-gray-700">
+          <button onClick={() => changeMonth(1)} className="flex justify-end flex-grow p-2 rounded-md hover:bg-gray-700 hover:cursor-pointer">
             <ChevronRight size={20} className="text-white" />
           </button>
         </div>
@@ -139,7 +139,7 @@ export default function Dashboard() {
         {/* Tombol Download ditambahkan di sini */}
         <button
           onClick={handleDownload}
-          className="flex items-center justify-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white font-bold py-2 px-4 rounded-md transition-colors"
+          className="flex items-center justify-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white font-bold py-2 px-4 rounded-md transition-colors hover:cursor-pointer"
         >
           <Download size={18} />
           Download Overlay
