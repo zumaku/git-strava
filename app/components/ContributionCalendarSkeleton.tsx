@@ -4,7 +4,7 @@ export default function ContributionCalendarSkeleton() {
   return (
     <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 w-full h-full">
       {/* Placeholder untuk judul bulan */}
-      <div className="h-7 bg-gray-700 rounded-md w-1/3 mb-4 animate-pulse"></div>
+      <div className="h-7 bg-gray-700 rounded-md w-1/2 mb-4 animate-pulse"></div>
       
       {/* Placeholder untuk grid kalender */}
       <div className="grid grid-flow-col grid-rows-7 gap-2">

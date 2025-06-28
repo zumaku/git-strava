@@ -42,15 +42,9 @@ export default function ContributionCalendar({ weeks }: ContributionCalendarProp
 
   return (
     <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 w-full md:w-fit h-full">
-      <h3 className="text-lg font-bold text-white mb-4">{monthName}</h3>
+      <h3 className="text-2xl font-bold text-white mb-4">{monthName}</h3>
       
       <div className="w-full overflow-x-auto pb-2">
-        {/*
-          PERUBAHAN UTAMA:
-          - Label hari dihapus.
-          - Ukuran kotak diubah dari w-5 h-5 menjadi w-8 h-8 (lebih besar).
-          - Jarak antar kotak diubah dari gap-1.5 menjadi gap-2.
-        */}
         <div className="grid grid-flow-col grid-rows-7 gap-2" style={{ width: 'max-content' }}>
           {weeks.map((week) =>
             week.contributionDays.map((day) => (
