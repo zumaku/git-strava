@@ -97,7 +97,7 @@ export default function Dashboard() {
   });
 
   const DashboardSkeleton = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit mt-6">
       <div className="flex flex-col gap-6 w-full">
         <StatCardSkeleton />
         <StatCardSkeleton />
@@ -112,29 +112,15 @@ export default function Dashboard() {
   if (!data || !session?.user?.name) return <p className="text-white">Invalid session.</p>;
 
   return (
-    <>
-      
-      <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-2 mt-6">
-        
-        <div className="flex items-center gap-4 mb-4 bg-gray-800 p-2 rounded-lg">
-          <button onClick={() => changeMonth(-1)} className="p-2 rounded-md hover:bg-gray-700">
-            <ChevronLeft size={20} className="text-white" />
-          </button>
-          <h2 className="text-xl font-bold text-white w-48 text-center">{monthYearLabel}</h2>
-          <button onClick={() => changeMonth(1)} className="p-2 rounded-md hover:bg-gray-700">
-            <ChevronRight size={20} className="text-white" />
-          </button>
-        </div>
-
-        {/* Tata letak dashboard Anda yang sekarang */}
-        {isLoading ? (
+    <div className="max-w-[500px]">
+      {isLoading ? (
           <DashboardSkeleton />
         ) : error ? (
-          <p className="text-red-500 text-center my-16">Error: {error}</p>
+          <p className="text-red-500 text-center my-16 mt-6">Error: {error}</p>
         ) : !data ? (
-          <p className="text-white text-center my-16">There is no data to display.</p>
+          <p className="text-white text-center my-16 mt-6">There is no data to display.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit mt-6">
             <div className="flex flex-col gap-6 w-full">
               <StatCard title="LOC Additions" value={`+${data.totalAdditions.toLocaleString()}`} valueColor="text-green-400"/>
               <StatCard title="LOC Deletions" value={`-${data.totalDeletions.toLocaleString()}`} valueColor="text-red-400"/>
@@ -145,17 +131,26 @@ export default function Dashboard() {
             </div>
           </div>
         )}
-      </div>
 
-      {/* Tombol Download ditambahkan di sini */}
-      <div className="flex justify-end mt-8">
+      <div className="flex flex-col w-full gap-3">
+        <div className="flex items-center mt-4 w-full justify-between bg-gray-800 p-2 rounded-lg">
+          <button onClick={() => changeMonth(-1)} className="flex-grow rounded-md hover:bg-gray-700">
+            <ChevronLeft size={20} className="text-white" />
+          </button>
+          <h2 className="text-xl font-bold text-white text-center">{monthYearLabel}</h2>
+          <button onClick={() => changeMonth(1)} className="flex justify-end flex-grow rounded-md hover:bg-gray-700">
+            <ChevronRight size={20} className="text-white" />
+          </button>
+        </div>
+
+        {/* Tombol Download ditambahkan di sini */}
         <button
-          onClick={handleDownload}
-          className="flex items-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white font-bold py-2 px-4 rounded-md transition-colors"
-        >
-          <Download size={18} />
-          Download Overlay
-        </button>
+            onClick={handleDownload}
+            className="flex items-center justify-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white font-bold py-2 px-4 rounded-md transition-colors"
+          >
+            <Download size={18} />
+            Download Overlay
+          </button>
       </div>
       
       {/* Komponen untuk di-download, dirender tapi disembunyikan */}
@@ -163,6 +158,6 @@ export default function Dashboard() {
       {/* <div className='p-10'> */}
         <ShareableImage ref={imageRef} data={data} monthYearLabel={monthYearLabel} username={session.user.name} />
       </div>
-    </>
+    </div>
   );
 }
