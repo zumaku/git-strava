@@ -134,11 +134,11 @@ export default function Dashboard() {
 
       <div className="flex flex-col w-full gap-3">
         <div className="flex items-center mt-4 w-full justify-between bg-gray-800 p-2 rounded-lg">
-          <button onClick={() => changeMonth(-1)} className="flex-grow rounded-md hover:bg-gray-700">
+          <button onClick={() => changeMonth(-1)} className="flex-grow p-2 rounded-md hover:bg-gray-700">
             <ChevronLeft size={20} className="text-white" />
           </button>
-          <h2 className="text-xl font-bold text-white text-center">{monthYearLabel}</h2>
-          <button onClick={() => changeMonth(1)} className="flex justify-end flex-grow rounded-md hover:bg-gray-700">
+          <h2 className="text-xl font-bold text-white text-center px-4">{monthYearLabel}</h2>
+          <button onClick={() => changeMonth(1)} className="flex justify-end flex-grow p-2 rounded-md hover:bg-gray-700">
             <ChevronRight size={20} className="text-white" />
           </button>
         </div>
