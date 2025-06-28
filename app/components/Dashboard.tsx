@@ -109,28 +109,22 @@ export default function Dashboard() {
     </div>
   );
 
+  if (isLoading) return <DashboardSkeleton />;
+  if (error) return <p className="text-red-500">Error: {error}</p>;
   if (!data || !session?.user?.name) return <p className="text-white">Invalid session.</p>;
 
   return (
     <div className="max-w-[500px]">
-      {isLoading ? (
-          <DashboardSkeleton />
-        ) : error ? (
-          <p className="text-red-500 text-center my-16 mt-6">Error: {error}</p>
-        ) : !data ? (
-          <p className="text-white text-center my-16 mt-6">There is no data to display.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit mt-6">
-            <div className="flex flex-col gap-6 w-full">
-              <StatCard title="LOC Additions" value={`+${data.totalAdditions.toLocaleString()}`} valueColor="text-green-400"/>
-              <StatCard title="LOC Deletions" value={`-${data.totalDeletions.toLocaleString()}`} valueColor="text-red-400"/>
-              <StatCard title="Lines Changed / Day" value={Math.round(data.averageChangesPerDay).toLocaleString()}/>
-            </div>
-            <div className="flex h-full">
-              <ContributionCalendar weeks={data.calendarWeeks} />
-            </div>
-          </div>
-        )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit mt-6">
+        <div className="flex flex-col gap-6 w-full">
+          <StatCard title="LOC Additions" value={`+${data.totalAdditions.toLocaleString()}`} valueColor="text-green-400"/>
+          <StatCard title="LOC Deletions" value={`-${data.totalDeletions.toLocaleString()}`} valueColor="text-red-400"/>
+          <StatCard title="Lines Changed / Day" value={Math.round(data.averageChangesPerDay).toLocaleString()}/>
+        </div>
+        <div className="flex h-full">
+          <ContributionCalendar weeks={data.calendarWeeks} />
+        </div>
+      </div>
 
       <div className="flex flex-col w-full gap-3">
         <div className="flex items-center mt-4 w-full justify-between bg-gray-800 p-2 rounded-lg">
@@ -145,19 +139,21 @@ export default function Dashboard() {
 
         {/* Tombol Download ditambahkan di sini */}
         <button
-            onClick={handleDownload}
-            className="flex items-center justify-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white font-bold py-2 px-4 rounded-md transition-colors"
-          >
-            <Download size={18} />
-            Download Overlay
-          </button>
+          onClick={handleDownload}
+          className="flex items-center justify-center gap-2 bg-[#FF574A] hover:bg-[#FF6054] text-white font-bold py-2 px-4 rounded-md transition-colors"
+        >
+          <Download size={18} />
+          Download Overlay
+        </button>
       </div>
       
       {/* Komponen untuk di-download, dirender tapi disembunyikan */}
-      <div style={{ position: 'absolute', left: '-9999px', top: 0, paddingTop: '40px' }}>
-      {/* <div className='p-10'> */}
-        <ShareableImage ref={imageRef} data={data} monthYearLabel={monthYearLabel} username={session.user.name} />
-      </div>
+      {data && session?.user?.name && (
+        <div style={{ position: 'absolute', left: '-9999px', top: 0, paddingTop: '40px' }}>
+        {/* <div className='p-10'> */}
+          <ShareableImage ref={imageRef} data={data} monthYearLabel={monthYearLabel} username={session.user.name} />
+        </div>
+      )}
     </div>
   );
 }
