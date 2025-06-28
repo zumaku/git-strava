@@ -135,7 +135,7 @@ export default function Dashboard() {
           <p className="text-white text-center my-16">There is no data to display.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit">
-            <div className="flex flex-col gap-6 w-full md:w-fit">
+            <div className="flex flex-col gap-6 w-full">
               <StatCard title="LOC Additions" value={`+${data.totalAdditions.toLocaleString()}`} valueColor="text-green-400"/>
               <StatCard title="LOC Deletions" value={`-${data.totalDeletions.toLocaleString()}`} valueColor="text-red-400"/>
               <StatCard title="Lines Changed / Day" value={Math.round(data.averageChangesPerDay).toLocaleString()}/>
