@@ -1,6 +1,6 @@
 // File: app/api/github-stats/route.ts
 
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
@@ -8,7 +8,7 @@ type Repo = { name: string; owner: { login: string; }; };
 type RepoContribution = { repository: Repo };
 type CommitNode = { oid: string; additions: number; deletions: number; committedDate: string; };
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user || !session.user.nodeId || !session.accessToken || !session.user.login) {
@@ -18,9 +18,19 @@ export async function GET() {
   const { accessToken } = session;
   const { login: username, nodeId: authorId } = session.user;
 
+  const { searchParams } = new URL(request.url);
+  const month = searchParams.get('month'); // contoh: '5' untuk Juni (karena index 0)
+  const year = searchParams.get('year');   // contoh: '2025'
+
   const now = new Date();
-  const fromDateISO = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-  const toDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  // Gunakan input jika ada, jika tidak, gunakan bulan saat ini
+  const targetYear = year ? parseInt(year) : now.getFullYear();
+  const targetMonth = month ? parseInt(month) : now.getMonth();
+
+  const fromDate = new Date(targetYear, targetMonth, 1);
+  const toDate = new Date(targetYear, targetMonth + 1, 0);
+  
+  const fromDateISO = fromDate.toISOString();
   const toDateISO = toDate.toISOString();
 
   try {

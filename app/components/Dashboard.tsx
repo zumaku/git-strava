@@ -7,7 +7,7 @@ import ContributionCalendar from './ContributionCalendar';
 import html2canvas from 'html2canvas'; // Import library
 import ShareableImage from './ShareableImage'; // Import komponen gambar kita
 import { useSession } from 'next-auth/react'; // Import useSession untuk mendapatkan nama
-import { Download } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Download } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import SuccessToast from './SuccessToast';
 
@@ -27,6 +27,8 @@ interface StatsData {
 }
 
 export default function Dashboard() {
+  const [currentDate, setCurrentDate] = useState(new Date());
+
   const [data, setData] = useState<StatsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -36,9 +38,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function fetchData() {
-      // ... (logika fetch data Anda tetap sama)
+      setIsLoading(true); // Mulai loading setiap kali bulan berubah
+      setError(null);
+
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
       try {
-        const response = await fetch('/api/github-stats');
+        const response = await fetch(`/api/github-stats?year=${year}&month=${month}`);
         if (!response.ok) throw new Error('Gagal mengambil data statistik');
         const result = await response.json();
         setData(result);
@@ -54,7 +61,7 @@ export default function Dashboard() {
       }
     }
     fetchData();
-  }, []);
+  }, [currentDate]);
 
   // Fungsi untuk menangani unduhan gambar
   const handleDownload = () => {
@@ -74,24 +81,55 @@ export default function Dashboard() {
     }
   };
 
-  if (isLoading) return <p className="text-white animate-pulse">Loading your statistics...</p>;
-  if (error) return <p className="text-red-500">Error: {error}</p>;
-  if (!data || !session?.user?.name) return <p className="text-white">There is no data to display.</p>;
+  const changeMonth = (amount: number) => {
+    setCurrentDate(prevDate => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(newDate.getMonth() + amount);
+      return newDate;
+    });
+  };
+
+  const monthYearLabel = currentDate.toLocaleString('en-EN', {
+    month: 'long',
+    year: 'numeric'
+  });
+
+  if (!data || !session?.user?.name) return <p className="text-white">Invalid session.</p>;
 
   return (
     <>
+      
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-2 mt-6">
-        {/* Tata letak dashboard Anda yang sekarang */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit">
-          <div className="flex flex-col gap-6 w-full md:w-fit">
-            <StatCard title="LOC Additions" value={`+${data.totalAdditions.toLocaleString()}`} valueColor="text-green-400"/>
-            <StatCard title="LOC Deletions" value={`-${data.totalDeletions.toLocaleString()}`} valueColor="text-red-400"/>
-            <StatCard title="Lines Changed / Day" value={Math.round(data.averageChangesPerDay).toLocaleString()}/>
-          </div>
-          <div className="flex h-full">
-            <ContributionCalendar weeks={data.calendarWeeks} />
-          </div>
+        
+        <div className="flex items-center gap-4 mb-4 bg-gray-800 p-2 rounded-lg">
+          <button onClick={() => changeMonth(-1)} className="p-2 rounded-md hover:bg-gray-700">
+            <ChevronLeft size={20} className="text-white" />
+          </button>
+          <h2 className="text-xl font-bold text-white w-48 text-center">{monthYearLabel}</h2>
+          <button onClick={() => changeMonth(1)} className="p-2 rounded-md hover:bg-gray-700">
+            <ChevronRight size={20} className="text-white" />
+          </button>
         </div>
+
+        {/* Tata letak dashboard Anda yang sekarang */}
+        {isLoading ? (
+          <p className="text-white animate-pulse text-center my-16">Loading statistics for {monthYearLabel}...</p>
+        ) : error ? (
+          <p className="text-red-500 text-center my-16">Error: {error}</p>
+        ) : !data ? (
+          <p className="text-white text-center my-16">There is no data to display.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit">
+            <div className="flex flex-col gap-6 w-full md:w-fit">
+              <StatCard title="LOC Additions" value={`+${data.totalAdditions.toLocaleString()}`} valueColor="text-green-400"/>
+              <StatCard title="LOC Deletions" value={`-${data.totalDeletions.toLocaleString()}`} valueColor="text-red-400"/>
+              <StatCard title="Lines Changed / Day" value={Math.round(data.averageChangesPerDay).toLocaleString()}/>
+            </div>
+            <div className="flex h-full">
+              <ContributionCalendar weeks={data.calendarWeeks} />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Tombol Download ditambahkan di sini */}
@@ -108,7 +146,7 @@ export default function Dashboard() {
       {/* Komponen untuk di-download, dirender tapi disembunyikan */}
       <div style={{ position: 'absolute', left: '-9999px', top: 0, paddingTop: '40px' }}>
       {/* <div className='p-10'> */}
-        <ShareableImage ref={imageRef} data={data} username={session.user.name} />
+        <ShareableImage ref={imageRef} data={data} monthYearLabel={monthYearLabel} username={session.user.name} />
       </div>
     </>
   );

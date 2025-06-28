@@ -21,6 +21,7 @@ interface StatsData {
 }
 interface ShareableImageProps {
   data: StatsData;
+  monthYearLabel: string,
   username: string;
 }
 
@@ -33,8 +34,8 @@ const getContributionHexColor = (count: number): string => {
   return '#39d353';
 };
 
-const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data }, ref) => {
-  const currentMonthName = new Date().toLocaleString('en-EN', { month: 'long' });
+const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data, monthYearLabel }, ref) => {
+  const activeMonthName = monthYearLabel;
 
   return (
     <div ref={ref} className={styles.container}>
@@ -54,7 +55,7 @@ const ShareableImage = forwardRef<HTMLDivElement, ShareableImageProps>(({ data }
         </div>
       </div>
 
-      <h2 className={styles.title}>{currentMonthName} Commits Callender</h2>
+      <h2 className={styles.title}>Commits on {activeMonthName}</h2>
       <div className={styles.calendarContainer}>
         <div className={styles.calendarGrid}>
           {data.calendarWeeks.map((week) =>
