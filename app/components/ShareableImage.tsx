@@ -1,8 +1,7 @@
-// File: app/components/ShareableImage.tsx
 'use client';
 
 import React, { forwardRef } from 'react';
-import styles from './ShareableImage.module.css'; // <-- Impor file CSS Module
+import styles from './ShareableImage.module.css';
 import Image from 'next/image';
 
 // Definisikan tipe data yang diterima komponen ini

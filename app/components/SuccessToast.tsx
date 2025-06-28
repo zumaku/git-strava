@@ -1,4 +1,3 @@
-// File: app/components/SuccessToast.tsx
 'use client';
 
 import { toast } from 'react-hot-toast';

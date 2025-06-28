@@ -1,5 +1,3 @@
-// File: app/components/ContributionCalendarSkeleton.tsx
-
 export default function ContributionCalendarSkeleton() {
   return (
     <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 w-full h-full">

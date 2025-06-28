@@ -1,5 +1,3 @@
-// app/api/auth/[...nextauth]/route.ts
-
 import NextAuth, { AuthOptions } from "next-auth";
 import GitHubProvider, { GithubProfile } from "next-auth/providers/github";
 

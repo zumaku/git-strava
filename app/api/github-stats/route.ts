@@ -1,5 +1,3 @@
-// File: app/api/github-stats/route.ts
-
 import { NextResponse, NextRequest } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -19,8 +17,8 @@ export async function GET(request: NextRequest) {
   const { login: username, nodeId: authorId } = session.user;
 
   const { searchParams } = new URL(request.url);
-  const month = searchParams.get('month'); // contoh: '5' untuk Juni (karena index 0)
-  const year = searchParams.get('year');   // contoh: '2025'
+  const month = searchParams.get('month');
+  const year = searchParams.get('year');
 
   const now = new Date();
   // Gunakan input jika ada, jika tidak, gunakan bulan saat ini

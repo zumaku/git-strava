@@ -1,14 +1,13 @@
-// File: app/components/Dashboard.tsx
 'use client';
 
-import { useState, useEffect, useRef } from 'react'; // Import useRef
+import { useState, useEffect, useRef } from 'react';
 import StatCard from './StatCard';
 import ContributionCalendar from './ContributionCalendar';
 import StatCardSkeleton from './StatCardSkeleton';
 import ContributionCalendarSkeleton from './ContributionCalendarSkeleton';
-import html2canvas from 'html2canvas'; // Import library
-import ShareableImage from './ShareableImage'; // Import komponen gambar kita
-import { useSession } from 'next-auth/react'; // Import useSession untuk mendapatkan nama
+import html2canvas from 'html2canvas';
+import ShareableImage from './ShareableImage';
+import { useSession } from 'next-auth/react';
 import { ChevronLeft, ChevronRight, Download } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import SuccessToast from './SuccessToast';
@@ -150,7 +149,6 @@ export default function Dashboard() {
       {/* Komponen untuk di-download, dirender tapi disembunyikan */}
       {data && session?.user?.name && (
         <div style={{ position: 'absolute', left: '-9999px', top: 0, paddingTop: '40px' }}>
-        {/* <div className='p-10'> */}
           <ShareableImage ref={imageRef} data={data} monthYearLabel={monthYearLabel} username={session.user.name} />
         </div>
       )}

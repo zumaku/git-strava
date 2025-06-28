@@ -1,4 +1,3 @@
-// File: app/components/ContributionCalendar.tsx
 'use client';
 
 type ContributionDay = {

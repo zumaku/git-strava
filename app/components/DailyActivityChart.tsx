@@ -1,4 +1,3 @@
-// File: app/components/DailyActivityChart.tsx
 'use client';
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';

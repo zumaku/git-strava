@@ -1,5 +1,3 @@
-// File: app/components/StatCardSkeleton.tsx
-
 export default function StatCardSkeleton() {
   return (
     <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 flex flex-col gap-3">

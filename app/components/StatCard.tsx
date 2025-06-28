@@ -1,4 +1,3 @@
-// File: app/components/StatCard.tsx
 'use client';
 
 import { type LucideIcon } from 'lucide-react';
@@ -6,8 +5,8 @@ import { type LucideIcon } from 'lucide-react';
 interface StatCardProps {
   title: string;
   value: number | string;
-  Icon?: LucideIcon; // Ikon sekarang opsional (ditandai dengan '?')
-  valueColor?: string; // Properti baru untuk warna teks nilai
+  Icon?: LucideIcon;
+  valueColor?: string;
 }
 
 export default function StatCard({ title, value, Icon, valueColor = 'text-white' }: StatCardProps) {
