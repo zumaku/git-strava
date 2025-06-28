@@ -37,7 +37,7 @@ export default function HowItWorksSection() {
                             Secure authentication. We request repository access permission to calculate accurate statistics.
                             <button 
                             onClick={() => setIsPrivacyModalOpen(true)} 
-                            className="text-indigo-400 hover:underline ml-1 font-semibold"
+                            className="text-indigo-400 hover:underline ml-1 font-semibold hover:cursor-pointer"
                             >
                             Learn more.
                             </button>

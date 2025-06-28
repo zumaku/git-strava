@@ -11,11 +11,11 @@ export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50 p-4">
+    <div className="fixed inset-0 bg-[#00000066] flex justify-center items-center z-50 p-4">
       <div className="bg-gray-800 border border-gray-700 p-8 rounded-lg relative max-w-2xl w-full shadow-xl">
         <button 
           onClick={onClose} 
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors hover:cursor-pointer"
           aria-label="Tutup"
         >
           <X size={24} />

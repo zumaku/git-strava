@@ -28,7 +28,7 @@ export default function AuthButton() {
         <span className="text-white hidden sm:block">{session.user?.name}</span>
         <button
           onClick={() => signOut()}
-          className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white font-bold py-2 px-4 rounded-md transition-colors"
+          className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white font-bold py-2 px-4 rounded-md transition-colors hover:cursor-pointer"
         >
           <LogOut size={18} />
           <p className='hidden sm:block' >Logout</p>
@@ -41,7 +41,7 @@ export default function AuthButton() {
   return (
     <button
       onClick={() => signIn('github')}
-      className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white font-bold py-2 px-4 rounded-md transition-colors"
+      className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white font-bold py-2 px-4 rounded-md transition-colors hover:cursor-pointer"
     >
       <LogIn className='hidden sm:block' size={18} />
       Login
