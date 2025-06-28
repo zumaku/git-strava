@@ -74,7 +74,6 @@ export default function HowItWorksSection() {
                 src="/gitstrava.mp4"
                 loop 
                 playsInline
-                autoPlay
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
             >
