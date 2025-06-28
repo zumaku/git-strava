@@ -1,4 +1,5 @@
-import { Star, Gift, LogIn, Bot, Download } from 'lucide-react'; // <-- Menambahkan ikon baru
+import { Star, Gift } from 'lucide-react';
+import HowItWorksSection from './HowItWorksSection';
 
 export default function HomePage() {
     return (
@@ -32,63 +33,7 @@ export default function HomePage() {
                 </div>
             </div>
 
-            {/* --- SEKSI BARU: CARA KERJA --- */}
-            <div className="w-full max-w-6xl mx-auto py-16 px-4">
-                <h3 className="text-3xl font-bold text-white text-center mb-12">3 Easy Steps</h3>
-                    
-                {/* PERUBAHAN UTAMA: Menambahkan 'lg:grid-cols-3' untuk mode desktop */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 items-start">
-                    
-                    {/* Kolom Kiri: Langkah-langkah, sekarang mengambil 2 kolom di desktop */}
-                    <div className="flex flex-col gap-8 text-left lg:col-span-2">
-                        <div className="flex items-start gap-4">
-                            <div className="bg-indigo-600/20 text-indigo-400 p-3 rounded-lg">
-                                <LogIn size={24} />
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-xl text-white">1. Login with GitHub</h4>
-                                <p className="text-gray-400 mt-1">Securely authenticate your account. We only ask for permission to read your public and private activity.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="bg-indigo-600/20 text-indigo-400 p-3 rounded-lg">
-                                <Bot size={24} />
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-xl text-white">2. Automated Process</h4>
-                                <p className="text-gray-400 mt-1">The application will automatically retrieve and process your contribution data for the last month.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="bg-indigo-600/20 text-indigo-400 p-3 rounded-lg">
-                                <Download size={24} />
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-xl text-white">3. Download & Paste In Your Video</h4>
-                                <p className="text-gray-400 mt-1">Create an overlay, preview it, and download the result as a PNG image ready to use in your vidio.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Kolom Kanan: Video, mengambil 1 kolom di desktop */}
-                    <div className="w-full max-w-xs mx-auto aspect-[9/16] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden">
-                        <video 
-                            className="w-full h-full object-cover"
-                            src="/gitstrava_by_zuma.mp4"
-                            loop 
-                            playsInline
-                            autoPlay
-                            controls 
-                            controlsList="nodownload nofullscreen noremoteplayback"
-                            disablePictureInPicture
-                        >
-                            Browser Anda tidak mendukung tag video.
-                        </video>
-                    </div>
-
-                </div>
-            </div>
-            {/* --- AKHIR SEKSI BARU --- */}
+            <HowItWorksSection />
 
             <p className="text-lg text-gray-400 mt-10">
                 Created by <a href="https://github.com/zumaku" className="font-bold text-white hover:underline">Zumaku</a>
