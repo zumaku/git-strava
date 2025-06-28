@@ -4,6 +4,8 @@
 import { useState, useEffect, useRef } from 'react'; // Import useRef
 import StatCard from './StatCard';
 import ContributionCalendar from './ContributionCalendar';
+import StatCardSkeleton from './StatCardSkeleton';
+import ContributionCalendarSkeleton from './ContributionCalendarSkeleton';
 import html2canvas from 'html2canvas'; // Import library
 import ShareableImage from './ShareableImage'; // Import komponen gambar kita
 import { useSession } from 'next-auth/react'; // Import useSession untuk mendapatkan nama
@@ -94,6 +96,19 @@ export default function Dashboard() {
     year: 'numeric'
   });
 
+  const DashboardSkeleton = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center w-fit">
+      <div className="flex flex-col gap-6 w-full">
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+      </div>
+      <div className="flex h-full">
+        <ContributionCalendarSkeleton />
+      </div>
+    </div>
+  );
+
   if (!data || !session?.user?.name) return <p className="text-white">Invalid session.</p>;
 
   return (
@@ -113,7 +128,7 @@ export default function Dashboard() {
 
         {/* Tata letak dashboard Anda yang sekarang */}
         {isLoading ? (
-          <p className="text-white animate-pulse text-center my-16">Loading statistics for {monthYearLabel}...</p>
+          <DashboardSkeleton />
         ) : error ? (
           <p className="text-red-500 text-center my-16">Error: {error}</p>
         ) : !data ? (
