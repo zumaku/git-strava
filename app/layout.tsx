@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="b9vZXO3othX2eP3PFFKm_Zf_gK4lb1FXzo8VuZ427T8" />
       </head>
